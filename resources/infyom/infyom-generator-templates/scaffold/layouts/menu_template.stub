@@ -1,0 +1,11 @@
+
+<li class="treeview class="{{ Request::is('$MODEL_NAME_PLURAL_CAMEL$*') ? 'active' : '' }}"">
+<a href="#"><span>$MODEL_NAME$</span> <i class="fa fa-angle-left pull-right"></i></a>
+	<ul class="treeview-menu">
+	<li><a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') !!}"><i class="fa fa-edit"></i><span>$MODEL_NAME_PLURAL$</span></a></li>
+	<li><a href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create') !!}"><i class="fa fa-edit"></i><span>New $MODEL_NAME$</span></a></li>
+	</ul>
+</li>
+
+
+
