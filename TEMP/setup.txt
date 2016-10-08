@@ -12,22 +12,53 @@ public function updatePortLog(Request $request,$calls, $sub_calls, $id )
 
 
  public function updatePortLog(Request $request,$id)
-    {
-        $subPortLog = SubPortLog::findorFail($id);
-        $call = PslCall::findorFail($subPortLog->call_id);
-        $subCall = SubCall::findorFail($subPortLog->sub_call_id);
+	{
+		$subPortLog = SubPortLog::findorFail($id);
+		$call = PslCall::findorFail($subPortLog->call_id);
+		$subCall = SubCall::findorFail($subPortLog->sub_call_id);
 
-        $validator = Validator::make($request->all(), [
-            'description' => ['required'],
-            'log_time' => ['required'],
-        ]);
+		$validator = Validator::make($request->all(), [
+			'description' => ['required'],
+			'log_time' => ['required'],
+		]);
 
-        $input['description'] = $request->description;
-        $input['update_user_id'] = Auth::id();
-        $input['log_time'] = Carbon::parse($request->log_time)->format('Y-m-d h:i');
-        $subPortLog->update($input);
+		$input['description'] = $request->description;
+		$input['update_user_id'] = Auth::id();
+		$input['log_time'] = Carbon::parse($request->log_time)->format('Y-m-d h:i');
+		$subPortLog->update($input);
 return response()->json($subPortLog);
-    }
+	}
+
+scaffolder:cache-clear
+
+		"filp/whoops": "^2.1",
+		"intervention/image": "^2.3",
+		"intervention/imagecache": "^2.3",
+		"jeroen-g/laravel-packager": "^1.5",
+		"orangehill/iseed": "^2.2",
+		"itsgoingd/clockwork": "^1.12",
+		"doctrine/dbal": "^2.5",
+		"barryvdh/laravel-ide-helper": "^2.2",
+		"barryvdh/laravel-debugbar": "^2.3",
+		"roumen/sitemap": "^2.6",
+		"cmgmyr/messenger": "^2.13",
+		"kalnoy/nestedset": "^4.1"
+
+composer require mpociot/laravel-apidoc-generator
+Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+
+		"intervention/image": "^2.3",
+		"intervention/imagecache": "^2.3",
+		"jeroen-g/laravel-packager": "^1.5",
+		"orangehill/iseed": "^2.2",
+		"itsgoingd/clockwork": "^1.12",
+		"doctrine/dbal": "^2.5",
+		"barryvdh/laravel-ide-helper": "^2.2",
+		"barryvdh/laravel-debugbar": "^2.3",
+		"roumen/sitemap": "^2.6",
+		"cmgmyr/messenger": "^2.13",
+		"mpociot/laravel-test-factory-helper": "^0.2.0",
+		"kalnoy/nestedset": "^4.1"
 
 
 composer require barryvdh/laravel-debugbar barryvdh/laravel-ide-helper doctrine/dbal barryvdh/laravel-translation-manager laravel/scout laravel/socialite arcanedev/gravatar arcanedev/currencies roumen/sitemap cmgmyr/messenger kalnoy/nestedset
@@ -106,7 +137,7 @@ https://github.com/vergil-lai/node-categoires
 
 	class Category extends Model
 	{
-	    use \VergilLai\NodeCategories\NodeCategoryTrait;
+		use \VergilLai\NodeCategories\NodeCategoryTrait;
 	}
 	Add the model viewer
 
@@ -227,18 +258,18 @@ Get tree data structure
 $ Map callable processing raw data map method for collection
 
 $tree = Category::getTree(function($item) {
-    $item->title = $item->name;
+	$item->title = $item->name;
 });
 
 
 class User extends Eloquent
 {
-    public static function boot()
-    {
-        parent::boot();
+	public static function boot()
+	{
+		parent::boot();
 
-        parent::observe(new UserObserver);
-    }
+		parent::observe(new UserObserver);
+	}
 }
 
 
@@ -268,7 +299,7 @@ Add the trait to your user model:
 use Cmgmyr\Messenger\Traits\Messagable;
 
 class User extends Model {
-    use Messagable;
+	use Messagable;
 }
 
 
@@ -284,16 +315,16 @@ php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 php artisan ide-helper:models Warehouse
 
  "post-update-cmd": [
-        "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-        "php artisan ide-helper:generate ",
-        "php artisan ide-helper:meta",
-        "php artisan optimize"
-    ]
+		"Illuminate\\Foundation\\ComposerScripts::postUpdate",
+		"php artisan ide-helper:generate ",
+		"php artisan ide-helper:meta",
+		"php artisan optimize"
+	]
 
 
-    php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config
+	php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config
 
-    php artisan ide-helper:generate --sublime
+	php artisan ide-helper:generate --sublime
 
 php artisan translations:import
 php artisan translations:find
@@ -306,21 +337,21 @@ php artisan translations:reset
 'Barryvdh\TranslationManager\TranslationServiceProvider',
 
 
-    Laravel 5.2, you will have to change the route/middleware setting from the default
+	Laravel 5.2, you will have to change the route/middleware setting from the default
 
-    'route' => [
-        'prefix' => 'translations',
-        'middleware' => 'auth',
-    ],
+	'route' => [
+		'prefix' => 'translations',
+		'middleware' => 'auth',
+	],
 to
 
-    'route' => [
-        'prefix' => 'translations',
-        'middleware' => [
-            'web',
-            'auth',
-        ],
-    ],
+	'route' => [
+		'prefix' => 'translations',
+		'middleware' => [
+			'web',
+			'auth',
+		],
+	],
 
 
 use Laravel\Scout\Searchable;
@@ -328,25 +359,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use Searchable;
+	use Searchable;
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
+	/**
+	 * Get the indexable data array for the model.
+	 *
+	 * @return array
+	 */
+	public function toSearchableArray()
+	{
+		$array = $this->toArray();
 
-        // Customize array...
+		// Customize array...
 
-        return $array;
-    }
+		return $array;
+	}
 }
 
 https://github.com/barryvdh/laravel-httpcache
-    "barryvdh/laravel-httpcache": "0.2.x@dev"
+	"barryvdh/laravel-httpcache": "0.2.x@dev"
 
 
 
@@ -354,26 +385,26 @@ https://github.com/barryvdh/laravel-httpcache
 
 
 add_action( 'wp_footer', function() {
-    global $wp_filter;
-    print '<pre>';
-    print_r( $wp_filter['admin_bar_menu'] );
-    print '</pre>';
+	global $wp_filter;
+	print '<pre>';
+	print_r( $wp_filter['admin_bar_menu'] );
+	print '</pre>';
 });
 
 
 
 
 
-    public function index()
-    {
-        $info = [];
-        $info['post_count'] = $this->postRepository->count();
-        $info['comment_count'] = $this->commentRepository->count();
-        $info['user_count'] = $this->userRepository->count();
-        $info['category_count'] = $this->categoryRepository->count();
-        $info['tag_count'] = $this->tagRepository->count();
-        $info['page_count'] = $this->pageRepository->count();
-        $info['image_count'] = $this->imageRepository->count();
+	public function index()
+	{
+		$info = [];
+		$info['post_count'] = $this->postRepository->count();
+		$info['comment_count'] = $this->commentRepository->count();
+		$info['user_count'] = $this->userRepository->count();
+		$info['category_count'] = $this->categoryRepository->count();
+		$info['tag_count'] = $this->tagRepository->count();
+		$info['page_count'] = $this->pageRepository->count();
+		$info['image_count'] = $this->imageRepository->count();
 
-        return view('admin.index', compact('info'));
-    }
+		return view('admin.index', compact('info'));
+	}
